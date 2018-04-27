@@ -1,0 +1,19 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="labreq:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/labreq_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="labreq/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="labreq" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="file-copy" path="$USER_HOME$/Downloads/mongo-java-driver-3.6.3.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/MultiThreadingCrawlerAndIndexer-master/Libraries/snowball-1.0.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/MultiThreadingCrawlerAndIndexer-master/Libraries/jrobotx-0.2.jar" />
+          <element id="file-copy" path="$USER_HOME$/Desktop/MultiThreadingCrawlerAndIndexer-master/Libraries/jsoup-1.11.2.jar" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
