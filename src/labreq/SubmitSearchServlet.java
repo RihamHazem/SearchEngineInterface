@@ -19,17 +19,16 @@ public class SubmitSearchServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String x = request.getParameter("msg").trim();
-        String[] statement = x.split("\\s+");
+        String statement = request.getParameter("msg").trim();
         if(!SearchServlet.trieStatementSearch.search(statement)) {
             System.out.println("new statement.");
             SearchServlet.trieStatementSearch.insert(statement);
             // TODO: Save the statement in the database also
-            db.insertStatement(x);
+            db.insertStatement(statement);
         }
 
         ///////////////////////////////////
-        String[] userInput = x.split("\\s+");
+        String[] userInput = statement.split("\\s+");
         StringBuilder suggestedWord = new StringBuilder();
         int cnt = 0;
         for (String ui: userInput) {

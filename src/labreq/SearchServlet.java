@@ -18,7 +18,7 @@ import java.util.PriorityQueue;
 @WebServlet(name = "Search",urlPatterns = "/Search")
 public class SearchServlet extends HttpServlet {
 
-    public static TrieStatementSearch trieStatementSearch = new TrieStatementSearch();
+    public static TrieSearchTree trieStatementSearch = new TrieSearchTree();
     public static TrieSearchTree dictionaryTrie = new TrieSearchTree();
 
     @Override
@@ -41,25 +41,20 @@ public class SearchServlet extends HttpServlet {
          * if statement isn't found and the user chose to search it
          * then we insert it in the tree
          */
-        ArrayList<String> test = new ArrayList<>();
-        String[] userInput = msg.split("\\s+");
-
-        for (String ui: userInput) {
-            test.add(ui.toLowerCase());
-        }
+//        ArrayList<String> test = new ArrayList<>();
+//        String[] userInput = msg.split("\\s+");
+//
+//        for (String ui: userInput) {
+//            test.add(ui.toLowerCase());
+//        }
         response.setContentType("text/plain");
         PrintWriter out = response.getWriter();
 
-        ArrayList< ArrayList<String> > suggestedStatements = trieStatementSearch.autoCompleteWord(test);
+        ArrayList< String > suggestedStatements = trieStatementSearch.autoCompleteWord(msg);
         if (suggestedStatements != null) {
             suggestedStatements.forEach((k)-> {
-                StringBuilder statement = new StringBuilder("");
-                k.forEach((j)-> {
-                    statement.append(j);
-                    statement.append(" ");
-                });
-                out.print(statement.toString()+",");
-                System.out.println("Suggested Statements: " + statement);
+                out.print(k.replaceAll("\\{", " ")+",");
+                System.out.println("Suggested Statements: " + k);
             });
 
         }

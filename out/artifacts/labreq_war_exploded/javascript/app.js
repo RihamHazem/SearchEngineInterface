@@ -138,6 +138,14 @@ $("#search-result").on('click', function (e) {
     $("#searchQuery").val(data);
 });
 
+$("#myDropdown").click(function (e) {
+    e.preventDefault();
+    var data = $("#" + e["target"]["id"]).text();
+    console.log(e["target"]["id"]);
+    $("#searchQuery").val(data);
+    $("#myDropdown").html("");
+});
+
 $("#searchQuery").on('keyup', function (e) {
     var x = $("#searchQuery").val();
     $.post('Search', { "msg": x }, function (data) {
@@ -147,7 +155,7 @@ $("#searchQuery").on('keyup', function (e) {
         if (data.length > 0) {
             newData = data.split(",");
             for (var i = 0; i < newData.length-1; i++) {
-                dropDown.append("<a>" + newData[i] + "</a>");
+                dropDown.append("<a id='drop-down-item" + i + "'>" + newData[i] + "</a>");
             }
         }
     });
@@ -164,5 +172,6 @@ $("#btn").on('click', function (e) {
             $("#doYouMean").text("");
             $("#search-result").text("");
         }
+        $("#myDropdown").html("");
     });
 });

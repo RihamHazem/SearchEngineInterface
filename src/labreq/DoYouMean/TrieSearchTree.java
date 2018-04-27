@@ -1,5 +1,7 @@
 package labreq.DoYouMean;
 
+import labreq.DB;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -8,7 +10,7 @@ import java.util.Scanner;
 
 public class TrieSearchTree {
     // Alphabet size (# of symbols)
-    private final int ALPHABET_SIZE = 26;
+    private final int ALPHABET_SIZE = 27;
 //    private static TrieSearchTree dictionaryTrie = new TrieSearchTree();
     private static ArrayList<String> dictionaryArr = new ArrayList<>();
     private static Levenshtein levenshtein = new Levenshtein();
@@ -29,6 +31,7 @@ public class TrieSearchTree {
     }
 
     private TrieNode root;
+    private DB db = new DB();
 
     public TrieSearchTree() {
         root = new TrieNode();
@@ -44,7 +47,10 @@ public class TrieSearchTree {
         TrieNode pCrawl = root;
 
         for (int level = 0; level < length; level++) {
-            int index = key.charAt(level) - 'a';
+            char c = key.charAt(level);
+            int index = c - 'a';
+            if (c == ' ')
+                index = 26;
             if (pCrawl.children[index] == null)
                 pCrawl.children[index] = new TrieNode();
 
@@ -62,7 +68,10 @@ public class TrieSearchTree {
         TrieNode pCrawl = root;
 
         for (int level = 0; level < length; level++) {
-            int index = key.charAt(level) - 'a';
+            char c = key.charAt(level);
+            int index = c - 'a';
+            if (c == ' ')
+                index = 26;
 
             if (pCrawl.children[index] == null)
                 return false;
@@ -94,13 +103,17 @@ public class TrieSearchTree {
 
         TrieNode pCrawl = root;
         ArrayList<String> allPrefix = new ArrayList<>();
-        int indx = word.charAt(0)-'a';
         int len = word.length();
-        for (int i = 0; i < len; i++) {
-            int index = word.charAt(i) - 'a';
 
-            if (pCrawl.children[index] == null)
-                break;
+        for (int i = 0; i < len; i++) {
+            char c = word.charAt(i);
+            int index = c - 'a';
+            if (c == ' ')
+                index = 26;
+
+            if (pCrawl.children[index] == null) {
+                return null;
+            }
 
             pCrawl = pCrawl.children[index];
         }
@@ -178,14 +191,16 @@ public class TrieSearchTree {
             System.out.println("Word: " + sample + " is spelt correctly.");
             return null;
         }
-//        ArrayList<String> res = new ArrayList<>();
-//        int cnt = 0;
-//        while (!suggestedWords.isEmpty()) {
-//            Entry entry = new Entry(suggestedWords.poll());
-//            res.add(entry.getKey());
-//            cnt++;
-//            if ( cnt > 10 ) break;
-//        }
         return suggestedWords.peek().getKey();
+    }
+    public void fillTrieStatementSearch() {
+        System.out.println("I'm heee");
+        ArrayList<String> al = db.getUserStatements();
+        for (String anAl: al) {
+            String line = anAl
+                    .toLowerCase()
+                    .replaceAll("[^a-z\\s]", "");
+            insert(line);
+        }
     }
 }

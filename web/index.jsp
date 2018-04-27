@@ -32,18 +32,12 @@
       <img src="images/icon1.png">
     </div>
     <div class=" w3-container w3-center" id="data-list">
-        <input class="w3-input w3-round-large w3-mobile animated bounceInRight" align="middle"name="searchQuery" id="searchQuery" type="search" placeholder="Search...">
+        <input class="w3-input w3-round-large w3-mobile animated bounceInRight" autocomplete="off" style="float: left; width: 65%;" align="middle"name="searchQuery" id="searchQuery" type="search" placeholder="Search...">
+        <button type="submit" class="w3-button w3-round-large w3-mobile animated bounceInLeft submitSearch" style="float: right;" id="btn"> Submit</button>
+
         <div id="myDropdown" class="dropdown-content">
-            <%--<a href="#about">About</a>--%>
-            <%--<a href="#base">Base</a>--%>
-            <%--<a href="#blog">Blog</a>--%>
-            <%--<a href="#contact">Contact</a>--%>
-            <%--<a href="#custom">Custom</a>--%>
-            <%--<a href="#support">Support</a>--%>
-            <%--<a href="#tools">Tools</a>--%>
         </div>
     </div>
-    <button type="submit" class="w3-button w3-round-large w3-mobile animated bounceInLeft submitSearch" id="btn"> Submit</button>
     <div id="loader"></div>
   </form>
 </div>
